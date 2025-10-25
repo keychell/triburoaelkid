@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROJO METÁLICO FEST: Tributo a EL KID</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --rojo-metalico: #b31b1b;
+            --rojo-metalico-brillante: #ff2a2a;
+            --fondo-oscuro: #121212;
+            --texto-claro: #f5f5f5;
+            --gris-oscuro: #2a2a2a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--fondo-oscuro);
+            color: var(--texto-claro);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(18, 18, 18, 0.95);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--rojo-metalico-brillante);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--texto-claro);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--rojo-metalico-brillante);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--rojo-metalico-brillante);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--texto-claro);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 2rem 4rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--fondo-oscuro) 0%, #1a1a1a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(179, 27, 27, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .logo-container {
+            margin: 0 auto 2rem;
+            max-width: 300px;
+        }
+
+        .logo-container a {
+            display: none !important;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--rojo-metalico-brillante);
+            text-shadow: 0 0 10px rgba(255, 42, 42, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .hero h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--texto-claro);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, var(--rojo-metalico), var(--rojo-metalico-brillante));
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(179, 27, 27, 0.4);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 42, 42, 0.6);
+            background: linear-gradient(45deg, var(--rojo-metalico-brillante), var(--rojo-metalico));
+        }
+
+        /* Countdown */
+        .countdown-container {
+            margin: 3rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(179, 27, 27, 0.3);
+            max-width: 800px;
+            backdrop-filter: blur(10px);
+        }
+
+        .countdown-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--rojo-metalico-brillante);
+            text-align: center;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--rojo-metalico-brillante);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.5rem;
+            border-radius: 10px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--texto-claro);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            scroll-margin-top: 80px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--rojo-metalico-brillante);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--rojo-metalico-brillante);
+        }
+
+        /* Información */
+        .info-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(179, 27, 27, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .info-icon {
+            font-size: 1.5rem;
+            color: var(--rojo-metalico-brillante);
+            margin-right: 1rem;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .info-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--texto-claro);
+        }
+
+        .info-content p {
+            font-size: 1.1rem;
+            color: #ccc;
+        }
+
+        /* Entradas */
+        .tickets-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .ticket-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(179, 27, 27, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            width: 300px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .ticket-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--rojo-metalico-brillante);
+            box-shadow: 0 10px 30px rgba(179, 27, 27, 0.3);
+        }
+
+        .ticket-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--rojo-metalico-brillante);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ticket-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--rojo-metalico-brillante);
+            margin: 0.5rem 0 1rem;
+        }
+
+        .ticket-features {
+            list-style: none;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .ticket-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .ticket-features li:last-child {
+            border-bottom: none;
+        }
+
+        .ticket-features li::before {
+            content: '✓';
+            color: var(--rojo-metalico-brillante);
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        .ticket-button {
+            background: linear-gradient(45deg, var(--rojo-metalico), var(--rojo-metalico-brillante));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+            font-size: 1rem;
+            text-decoration: none;
+            display: block;
+        }
+
+        .ticket-button:hover {
+            background: linear-gradient(45deg, var(--rojo-metalico-brillante), var(--rojo-metalico));
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 42, 42, 0.4);
+        }
+
+        .ticket-note {
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        /* Centrar ROJO METÁLICO */
+        @media (min-width: 769px) {
+            .ticket-rojo-metalico {
+                transform: scale(1.08);
+                z-index: 1;
+                box-shadow: 0 0 25px rgba(179, 27, 27, 0.6);
+            }
+        }
+
+        /* Sobre El Kid */
+        .el-kid-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .el-kid-summary {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            text-align: justify;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--rojo-metalico-brillante);
+        }
+
+        .el-kid-image {
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 3px solid var(--rojo-metalico-brillante);
+            box-shadow: 0 5px 20px rgba(179, 27, 27, 0.4);
+        }
+
+        /* Música en Vivo */
+        .musica-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .musica-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+
+        .lineup-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .artist-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.2rem;
+            border-radius: 10px;
+            min-width: 180px;
+            text-align: center;
+            border: 1px solid rgba(179, 27, 27, 0.3);
+        }
+
+        .artist-name {
+            font-weight: 700;
+            color: var(--rojo-metalico-brillante);
+            font-size: 1.2rem;
+        }
+
+        /* Patrocinador Oficial */
+        .patrocinador-section {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4rem 2rem;
+            margin: 3rem 0;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .patrocinador-title {
+            font-size: 2rem;
+            color: var(--rojo-metalico-brillante);
+            margin-bottom: 1.5rem;
+        }
+
+        .patrocinador-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--rojo-metalico-brillante);
+            transition: all 0.3s ease;
+        }
+
+        .patrocinador-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(179, 27, 27, 0.4);
+        }
+
+        .patrocinador-icon {
+            font-size: 3rem;
+            color: var(--rojo-metalico-brillante);
+            margin-bottom: 1rem;
+        }
+
+        .patrocinador-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--rojo-metalico-brillante);
+            margin-bottom: 1rem;
+        }
+
+        .patrocinador-link {
+            display: inline-block;
+            color: var(--texto-claro);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, var(--rojo-metalico), var(--rojo-metalico-brillante));
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .patrocinador-link:hover {
+            background: linear-gradient(45deg, var(--rojo-metalico-brillante), var(--rojo-metalico));
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 42, 42, 0.4);
+        }
+
+        /* Contacto */
+        .contacto-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contacto-text {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(179, 27, 27, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--rojo-metalico-brillante);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: rgba(255, 42, 42, 0.3);
+            transform: translateY(-5px);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(179, 27, 27, 0.2);
+        }
+
+        /* Animaciones */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar { padding: 1rem; }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(18, 18, 18, 0.98);
+                flex-direction: column;
+                padding: 2rem 0;
+                gap: 1.5rem;
+                transform: translateY(-100%);
+                transition: transform 0.3s ease;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            }
+            .nav-links.active { transform: translateY(0); }
+            .hamburger { display: block; }
+            .hero h1 { font-size: 2.5rem; }
+            .countdown-number { font-size: 2rem; }
+            .section-title { font-size: 2rem; }
+            .tickets-container { flex-direction: column; align-items: center; }
+            .ticket-card { width: 90%; max-width: 350px; }
+            .ticket-rojo-metalico { transform: none !important; }
+        }
+
+        @media (max-width: 480px) {
+            .hero { padding: 140px 1rem 3rem; }
+            .hero h1 { font-size: 2rem; }
+            .countdown-number { font-size: 1.5rem; }
+            .social-icons { gap: 1rem; }
+            .social-icon { width: 50px; height: 50px; font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#inicio" class="navbar-brand">ROJO METÁLICO FEST</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#informacion">Información</a></li>
+            <li><a href="#entradas">Entradas</a></li>
+            <li><a href="#sobre-el-kid">Sobre El Kid</a></li>
+            <li><a href="#musica">Música en Vivo</a></li>
+            <li><a href="#patrocinador">Patrocinador</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="logo-container">
+            <div style="position: relative; width: 100%; height: 0; padding-top: 100.0000%;
+             padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+             border-radius: 8px; will-change: transform;">
+              <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                src="https://www.canva.com/design/DAGyVymlrQM/suBufMmRiXzz0FaKhLLsNQ/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+              </iframe>
+            </div>
+            <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGyVymlrQM&#x2F;suBufMmRiXzz0FaKhLLsNQ&#x2F;view?utm_content=DAGyVymlrQM&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">Diseño</a> de Lineas de elite
+        </div>
+        
+        <h1 class="fade-in">ROJO METÁLICO FEST</h1>
+        <h2 class="fade-in">Tributo a EL KID</h2>
+        <p class="fade-in">Una noche para honrar el legado sociocultural de EL KID con música en vivo, energía y memoria colectiva.</p>
+        
+        <a href="#entradas" class="cta-button fade-in">Reserva tu entrada</a>
+        
+        <div class="countdown-container fade-in">
+            <h3 class="countdown-title">¡CUENTA REGRESIVA PARA EL EVENTO!</h3>
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">Días</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">Horas</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minutos</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Segundos</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Información -->
+    <section id="informacion" class="fade-in">
+        <h2 class="section-title">INFORMACIÓN DEL EVENTO</h2>
+        <div class="info-container">
+            <div class="info-item">
+                <div class="info-icon"><i class="far fa-calendar-alt"></i></div>
+                <div class="info-content">
+                    <h3>Fecha</h3>
+                    <p>7 de diciembre de 2025</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="info-content">
+                    <h3>Ubicación</h3>
+                    <p><strong>Divas Lounge Tropical – Downtown Amador</strong></p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon"><i class="far fa-clock"></i></div>
+                <div class="info-content">
+                    <h3>Presentación de la tesis</h3>
+                    <p>5:00 p.m. – 6:00 p.m.</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon"><i class="far fa-clock"></i></div>
+                <div class="info-content">
+                    <h3>Tributo a EL KID</h3>
+                    <p>7:00 p.m. – 12:00 a.m.</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon"><i class="fas fa-music"></i></div>
+                <div class="info-content">
+                    <h3>Entretenimiento</h3>
+                    <p>Tributo con música en vivo por <strong>SaZón Experience</strong> y artistas invitados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Entradas -->
+    <section id="entradas" class="fade-in">
+        <h2 class="section-title">ENTRADAS</h2>
+        <div class="tickets-container">
+            <div class="ticket-card">
+                <h3 class="ticket-name">GENERAL - MODA INVIERNO</h3>
+                <div class="ticket-price">$7</div>
+                <p class="ticket-note">Válido hasta el 30 de noviembre</p>
+                <ul class="ticket-features">
+                    <li>Acceso a una parte del evento</li>
+                </ul>
+                <a href="https://wa.me/50765131487" class="ticket-button" target="_blank">Comprar por WhatsApp</a>
+            </div>
+            <div class="ticket-card ticket-rojo-metalico">
+                <h3 class="ticket-name">CHICA DE LA TV</h3>
+                <div class="ticket-price">$13</div>
+                <ul class="ticket-features">
+                    <li>Resumen de la tesis</li>
+                    <li>Stickers oficiales</li>
+                    <li>Chance de ganar un tatuaje valorado en $50</li>
+                </ul>
+                <a href="https://wa.me/50765131487" class="ticket-button" target="_blank">Comprar por WhatsApp</a>
+            </div>
+            <div class="ticket-card">
+                <h3 class="ticket-name">ROJO METÁLICO</h3>
+                <div class="ticket-price">$25</div>
+                <ul class="ticket-features">
+                    <li>Merch oficial del evento</li>
+                    <li>Resumen de la tesis</li>
+                    <li>Stickers oficiales</li>
+                    <li>Chance de ganar un tatuaje valorado en $75</li>
+                </ul>
+                <a href="https://wa.me/50765131487" class="ticket-button" target="_blank">Comprar por WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre El Kid -->
+    <section id="sobre-el-kid" class="fade-in">
+        <h2 class="section-title">SOBRE EL KID</h2>
+        <div class="el-kid-container">
+            <div class="el-kid-summary">
+                <p>EL KID fue una voz esencial del reggae panameño, cuya música trascendió el entretenimiento para convertirse en un espejo de la realidad social de los barrios populares. Sus letras directas y auténticas abordaron temas como la desigualdad, la violencia urbana y la superación personal, convirtiéndolo en un referente cultural para generaciones de jóvenes panameños.</p>
+                <p>Esta investigación académica analiza su impacto sociocultural, explorando cómo su legado continúa influyendo en la identidad juvenil, el lenguaje cotidiano y las narrativas sobre la realidad social panameña. A través de encuestas y análisis cualitativo, la tesis documenta cómo su música ha formado parte de la memoria colectiva y sigue resonando en la cultura urbana actual.</p>
+                <p>El ROJO METÁLICO FEST no solo es un tributo musical, sino la presentación pública de estos hallazgos, uniendo la academia con la cultura popular para honrar su legado de manera integral.</p>
+            </div>
+            <img src="https://media.telemetro.com/p/3bbe0b059ef4e3fc772119a574cd2e81/adjuntos/311/imagenes/018/027/0018027541/855x0/smart/imagepng.png" alt="EL KID" class="el-kid-image">
+        </div>
+    </section>
+
+    <!-- Música en Vivo -->
+    <section id="musica" class="fade-in">
+        <h2 class="section-title">MÚSICA EN VIVO</h2>
+        <div class="musica-container">
+            <p class="musica-text">
+                ¡No te lo pierdas! El tributo contará con la <strong>banda en vivo SaZón Experience</strong>, que acompañará a los artistas invitados en una noche llena de energía y recuerdos.
+            </p>
+            <p class="musica-text">
+                Artistas confirmados que interpretarán sus colaboraciones con EL KID:
+            </p>
+            <div class="lineup-list">
+                <div class="artist-card">
+                    <div class="artist-name">Emore Fire</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">El Tobe</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-name">Chendo</div>
+                </div>
+            </div>
+            <p class="musica-text" style="margin-top: 2rem;">
+                Una experiencia única en <strong>Divas Lounge Tropical</strong>, donde la música, la memoria y la cultura se unen para celebrar a una leyenda.
+            </p>
+        </div>
+    </section>
+
+    <!-- Patrocinador Oficial -->
+    <section id="patrocinador" class="fade-in">
+        <div class="patrocinador-section">
+            <h2 class="patrocinador-title">PATROCINADOR OFICIAL</h2>
+            <div class="patrocinador-card">
+                <div class="patrocinador-icon">
+                    <i class="fas fa-syringe"></i>
+                </div>
+                <h3 class="patrocinador-name">ÉXODO TATTOOS</h3>
+                <p>Orgullosos patrocinadores del ROJO METÁLICO FEST. Apoyando el arte, la cultura y la memoria colectiva.</p>
+                <a href="https://www.instagram.com/exodotattoos/" class="patrocinador-link" target="_blank" rel="noopener">
+                    <i class="fab fa-instagram"></i> Seguir en Instagram
+                </a>
+            </div>
+
+            <!-- Contacto para nuevos patrocinadores -->
+            <div class="patrocinador-card" style="margin-top: 2rem; border-color: var(--rojo-metalico-brillante);">
+                <h3 class="patrocinador-name" style="color: var(--rojo-metalico-brillante);">¿QUIERES SER PATROCINADOR?</h3>
+                <p>Únete a nosotros para honrar el legado de EL KID y apoyar esta iniciativa cultural única en Panamá.</p>
+                <a 
+                    href="https://wa.me/50765131487?text=Hola,%20quiero%20ser%20patrocinador%20del%20ROJO%20MET%C3%81LICO%20FEST.%20Por%20favor,%20env%C3%ADame%20m%C3%A1s%20informaci%C3%B3n." 
+                    class="patrocinador-link" 
+                    target="_blank" 
+                    rel="noopener"
+                    style="background: linear-gradient(45deg, var(--rojo-metalico-brillante), var(--rojo-metalico));"
+                >
+                    <i class="fab fa-whatsapp"></i> Quiero ser patrocinador
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="fade-in">
+        <h2 class="section-title">SÍGUENOS</h2>
+        <div class="contacto-container">
+            <p class="contacto-text">Síguenos para más detalles sobre el evento, artistas invitados y novedades.</p>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/rojometalicofest/" class="social-icon" target="_blank" rel="noopener">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.tiktok.com/@rojometalicofest" class="social-icon" target="_blank" rel="noopener">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>ROJO METÁLICO FEST – Tributo a EL KID © 2025</p>
+    </footer>
+
+    <script>
+        // Scroll suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                const navLinks = document.getElementById('navLinks');
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // Menú hamburguesa
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Contador regresivo
+        function updateCountdown() {
+            const eventDate = new Date('December 7, 2025 17:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').innerText = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+            
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('countdown').innerHTML = "<div class='countdown-item'><div class='countdown-number'>EVENTO</div><div class='countdown-label'>EN CURSO</div></div>";
+            }
+        }
+        
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Animaciones al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('appear');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Ocultar atribución de Canva
+        document.addEventListener('DOMContentLoaded', () => {
+            const attribution = document.querySelector('.logo-container a');
+            if (attribution) attribution.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
